@@ -7,6 +7,9 @@
     "type": "git",
     "url": "https://github.com/bensonruan/webcam-easy"
   },
+  "scripts": {
+    "build": "babel src -d dist && babel src --presets minify -d dist --out-file-extension .min.js"
+  },
   "homepage": "https://bensonruan.com/how-to-access-webcam-and-take-photo-with-javascript",
   "keywords": [
     "webcam",
@@ -17,5 +20,11 @@
     "backcamera"
   ],
   "author": "Benson Ruan",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.16.7",
+    "@babel/core": "^7.16.7",
+    "@sincronia/babel-plugin-remove-modules": "^0.4.2-alpha.3",
+    "babel-preset-minify": "^0.5.1"
+  }
 }

@@ -1,0 +1,5 @@
+{
+    "comments": false,
+    "plugins": ["@sincronia/babel-plugin-remove-modules"]
+}
+  
