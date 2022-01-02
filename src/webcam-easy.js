@@ -63,10 +63,10 @@ export default class Webcam {
     /* Select camera based on facingMode */ 
     selectCamera(){
       for(let webcam of this._webcamList){
-        if(   (this._facingMode=='user' && webcam.label.toLowerCase().includes('front'))
-          ||  (this._facingMode=='enviroment' && webcam.label.toLowerCase().includes('back'))
-        )
-        {
+        if(
+          (this._facingMode=='user' && (webcam.label.toLowerCase().includes('front') || webcam.label.toLowerCase().includes('frontal'))) || 
+          (this._facingMode=='enviroment' && webcam.label.toLowerCase().includes('back') || webcam.label.toLowerCase().includes('trasera'))
+        ) {
           this._selectedDeviceId = webcam.deviceId;
           break;
         }
@@ -87,14 +87,14 @@ export default class Webcam {
       4. Start stream
     */
     async start(startStream = true) {
-      return new Promise((resolve, reject) => {         
+      return new Promise((resolve, reject) => {
         this.stop();
         navigator.mediaDevices.getUserMedia(this.getMediaConstraints()) //get permisson from user
           .then(stream => {
             this._streamList.push(stream);
             this.info() //get all video input devices info
               .then(webcams =>{
-                this.selectCamera();   //select camera based on facingMode
+                this.selectCamera(); //select camera based on facingMode
                 if(startStream){
                     this.stream()
                         .then(facingMode =>{
@@ -119,7 +119,7 @@ export default class Webcam {
 
     /* Get all video input devices info */ 
     async info(){
-      return new Promise((resolve, reject) => {            
+      return new Promise((resolve, reject) => {
         navigator.mediaDevices.enumerateDevices()
           .then(devices =>{
             this.getVideoInputs(devices);
